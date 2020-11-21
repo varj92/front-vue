@@ -48,18 +48,24 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
-          <label>Estatus</label>
-          <input type="text" class="form-control" v-model="prospecto.estatus" readonly>
+        <label>Estatus</label>
+        <!-- <div class="input-group mb-3">
+            <select class="custom-select" id="inputGroupSelect01" v-model="prospecto.estatus">
+                <option selected ></option>
+                <option value="Autorizado">Autorizar</option>
+                <option value="Rechazado">Rechazar</option>
+            </select>
+        </div> -->
+        <input type="text" class="form-control" v-model="prospecto.estatus" required>
         </div>
-        <span v-if="prospecto.rechazo === ''">
-          <div class="form-group col-md-8">
-            <label>Descripción</label>
-            <input type="text" class="form-control" v-model="prospecto.rechazo" readonly>
-          </div>
-        </span>
-    </div>
-    <div>
-      <button @click="Salir()" type="button" class="btn btn-info">Regresar</button>
+        <div class="form-group col-md-8">
+        <label>Descripción</label>
+        <input type="text" class="form-control" v-model="prospecto.rechazo">
+        </div>
+        <div class="form-group col-md-4">
+          <button @click="Guardar()" type="button" class="btn btn-success btn-lg">Guardar</button>
+          <button @click="Salir()" type="button" class="btn btn-info">Regresar</button>
+        </div>
     </div>
 </form>
 </div>
@@ -102,11 +108,16 @@ export default {
       this.prospecto.codpos = datos.data.codpos;
       this.prospecto.telefono = datos.data.telefono;
       this.prospecto.rfc = datos.data.rfc;
-      this.prospecto.estatus = datos.data.estatus;
-      this.prospecto.rechazo = datos.data.rechazo;
     })
   },
   methods:{
+    Guardar(){
+      console.log(this.prospecto)
+      axios.put('https://api-python-mongo.herokuapp.com/evaluacion/', this.prospecto)
+      .then( data => {
+        console.log(data);
+      })
+    },
     Salir(){
       this.$router.push('/listado')
     }

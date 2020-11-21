@@ -1,6 +1,7 @@
 <template>
-<div class="listado">
-    <div class="card bg-light mb-3 col-sm-6">
+<div id="listado">
+    <div class="card bg-light mb-3 col-lg-8"> 
+      <!-- col-sm-9 col-md-6 col-lg-8 -->
       <table style="text-align:center" class="table">
         <thead>
           <tr class="table-primary">
@@ -9,19 +10,22 @@
             <th>Apellido Materno</th>
             <th>Estatus Proceso</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="prospecto in prospectos" :key="prospecto.id">
+          <tr v-for="prospecto in prospectos" :key="prospecto._id.$oid">
             <td>{{ prospecto.nombre }}</td>
             <td>{{ prospecto.appaterno }}</td>
             <td>{{ prospecto.apmaterno }}</td>
             <td>{{ prospecto.estatus }}</td>
+            <td><button v-on:click="Detalle(prospecto._id.$oid)" class="btn btn-info">Detalle</button></td>
             <td>
-              
-            <router-link :to="{ name: 'detalle', params : {id: prospecto._id}}">Detalle</router-link>
+              <button v-on:click="Evaluar(prospecto._id.$oid)" class="btn btn-info">Evaluar</button>
             </td>
-            <!-- <td><a href="/detalle/{{ prospecto.id }}" class="badge badge-info">Detalle</a></td> {"_id": {"$oid":-->
+            <td>
+              <!-- <button v-on:click="Evaluar()">Evaluar</button> -->
+            </td>
           </tr>
         </tbody>
       </table>
@@ -33,7 +37,7 @@
 import axios from "axios";
 
 export default {
-  name: 'App',
+  name: 'listado',
   data: () => ({
     prospectos: []
   }),
@@ -45,10 +49,17 @@ export default {
       axios.get('https://api-python-mongo.herokuapp.com/listado')
       .then(response => {
         this.prospectos = response.data
+        console.log(response)
       })
       .catch(error => {
         alert(error)
       })
+    },
+    Evaluar(id){
+      this.$router.push('/evaluacion/' + id)
+    },
+    Detalle(id){
+      this.$router.push('/detalle/' + id)
     }
   }
 }

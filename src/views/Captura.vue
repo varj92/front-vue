@@ -1,6 +1,6 @@
 <template>
-<div id="App">
-    <div class="card bg-info col-sm-6">
+<div id="captura">
+    <div class="card bg-light mb-3 col-lg-8"> 
       <form>
         <div class="form-row">
           <div class="form-group col-md-4">
@@ -59,7 +59,7 @@
 import axios from "axios";
 
 export default {
-  name: 'App',
+  name: 'captura',
   data: () => ({
     nombre : '',
     appaterno : '',
@@ -105,16 +105,18 @@ export default {
         })
     },
     Cancelar(){
-        if(confirm('Se perderán los datos de la captura?'))
-        this.nombre = '',
-        this.appaterno = '',
-        this.apmaterno = '',
-        this.calle = '',
-        this.numero = '',
-        this.colonia = '',
-        this.codpos = '',
-        this.telefono = '',
-        this.rfc = ''
+        if(confirm('Se perderán los datos de la captura?')){
+          this.nombre = '',
+          this.appaterno = '',
+          this.apmaterno = '',
+          this.calle = '',
+          this.numero = '',
+          this.colonia = '',
+          this.codpos = '',
+          this.telefono = '',
+          this.rfc = ''
+          this.$router.push('/listado')
+        }
     }
   }
 }
