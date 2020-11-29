@@ -19,9 +19,9 @@
             <td>{{ prospecto.appaterno }}</td>
             <td>{{ prospecto.apmaterno }}</td>
             <td>{{ prospecto.estatus }}</td>
-            <td><button v-on:click="Detalle(prospecto._id.$oid)" class="btn btn-info">Detalle</button></td>
+            <td><button v-on:click="Detalle(prospecto._id)" class="btn btn-info">Detalle</button></td>
             <td>
-              <button v-on:click="Evaluar(prospecto._id.$oid)" class="btn btn-info">Evaluar</button>
+              <button v-on:click="Evaluar(prospecto._id)" class="btn btn-info">Evaluar</button>
             </td>
             <td>
               <!-- <button v-on:click="Evaluar()">Evaluar</button> -->
@@ -46,7 +46,7 @@ export default {
   },
   methods:{
     getListado(){
-      axios.get('https://api-python-mongo.herokuapp.com/listado')
+      axios.get('http://localhost:5000/prospectos/listado')
       .then(response => {
         this.prospectos = response.data
         console.log(response)

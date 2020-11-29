@@ -69,7 +69,8 @@ export default {
     colonia : '',
     codpos : '',
     telefono : '',
-    rfc : ''
+    rfc : '',
+    rechazo : ''
   }),
   methods:{
     Captura(){
@@ -84,9 +85,10 @@ export default {
             codpos : this.codpos,
             telefono : this.telefono,
             rfc : this.rfc,
-            estatus : 'Autorizado'
+            estatus : 'Enviado',
+            rechazo : ''
         };
-        axios.post('https://api-python-mongo.herokuapp.com/captura', prospecto)
+        axios.post('http://localhost:5000/prospectos/captura', prospecto)
         .then(response => {
             this.prospecto = response.data
             console.log(prospecto)
@@ -98,7 +100,8 @@ export default {
             this.colonia = '',
             this.codpos = '',
             this.telefono = '',
-            this.rfc = ''
+            this.rfc = '',
+            this.$router.push('/listado')
         })
         .catch(error => {
             alert(error)

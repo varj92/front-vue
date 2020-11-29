@@ -97,7 +97,7 @@ export default {
   },
   mounted(){
     this.prospecto.id = this.$route.params.id;
-    axios.get('https://api-python-mongo.herokuapp.com/listado/' + this.prospecto.id)
+    axios.get('http://localhost:5000/prospectos/detalle/' + this.prospecto.id)
     .then( datos => {
       this.prospecto.nombre = datos.data.nombre;
       this.prospecto.appaterno = datos.data.appaterno;
@@ -112,8 +112,9 @@ export default {
   },
   methods:{
     Guardar(){
-      console.log(this.prospecto)
-      axios.put('https://api-python-mongo.herokuapp.com/evaluacion/', this.prospecto)
+      this.prospecto.id = this.$route.params.id;
+      console.log(this.prospecto.id)
+      axios.put('http://localhost:5000/prospectos/evaluacion/'+ this.prospecto.id)
       .then( data => {
         console.log(data);
       })

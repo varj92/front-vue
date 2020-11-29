@@ -51,7 +51,7 @@
           <label>Estatus</label>
           <input type="text" class="form-control" v-model="prospecto.estatus" readonly>
         </div>
-        <span v-if="prospecto.rechazo === ''">
+        <span v-if="prospecto.rechazo === ' '">
           <div class="form-group col-md-8">
             <label>Descripción</label>
             <input type="text" class="form-control" v-model="prospecto.rechazo" readonly>
@@ -91,7 +91,7 @@ export default {
   },
   mounted(){
     this.prospecto.id = this.$route.params.id;
-    axios.get('https://api-python-mongo.herokuapp.com/listado/' + this.prospecto.id)
+    axios.get('http://localhost:5000/prospectos/detalle/' + this.prospecto.id)
     .then( datos => {
       this.prospecto.nombre = datos.data.nombre;
       this.prospecto.appaterno = datos.data.appaterno;
